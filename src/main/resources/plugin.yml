@@ -1,0 +1,4 @@
+name: survivalTools
+version: ${project.version}
+main: me.b1vth420.survivalTools.Main
+api-version: 1.13
