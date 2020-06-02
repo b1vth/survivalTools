@@ -1,0 +1,29 @@
+#Wylaczenie szukania najblizszych portali (defaultowo wyszukiwany jest jakis pobliski portal niszczy to tzw. 'autostrady netherowe')
+repairNetherPortals: true
+
+removeJoinQuitMessage: true
+
+spawnTeleportTime: 5 #W sekundach permissja do pominiecia survivalTools.spawnBypass
+
+antylogoutTime: '30s'
+logoutBlockedCommands:
+  - /jakaskomenda
+
+randomTeleport:
+  block: BEDROCK
+  onePersonButton: STONE_BUTTON
+  multiplePersonButton: OAK_BUTTON
+  multiplePersonDistance: 4
+  min:
+    x: 100
+    y: 100
+  max:
+    x: 5000
+    y: 5000
+
+blockedCommands: #Permissja do pominiecia survivalTools.commandBypass
+  - /ver
+  - /bukkit:ver
+  - /plugins
+  - /pl
+  - /me #ITD..

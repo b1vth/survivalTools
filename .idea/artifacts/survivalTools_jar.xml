@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="survivalTools:jar">
+    <output-path>$USER_HOME$/Desktop/Serwery/Busio/plugins</output-path>
+    <root id="archive" name="survivalTools.jar">
+      <element id="module-output" name="survivalTools" />
+    </root>
+  </artifact>
+</component>
