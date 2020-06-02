@@ -1,6 +1,8 @@
 package me.b1vth420.survivalTools.data.configs;
 
 import me.b1vth420.survivalTools.Main;
+import me.b1vth420.survivalTools.data.DataSaveType;
+import me.b1vth420.survivalTools.utils.StringUtil;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -28,7 +30,18 @@ public class Config {
     public Material randomTeleportBlock;
     public Material randomOnePersonTeleportButton;
     public Material randomMultiplePersonTeleportButton;
+    public Material randomMultiplePlateType;
     public int randomMultiplePersonSearchDist;
+    public boolean detectorEnabled;
+    public List<Material> detectorBlocks;
+
+    public DataSaveType dataSaveType;
+    public String mysqlIP;
+    public int mysqlPort;
+    public String mysqlUser;
+    public String mysqlPassword;
+    public String mysqlDatabase;
+
 
     private void load() {
         this.repairNetherPortals = cfg.getBoolean("repairNetherPortals");
@@ -45,6 +58,16 @@ public class Config {
         this.randomOnePersonTeleportButton = Material.matchMaterial(cfg.getString("randomTeleport.onePersonButton"));
         this.randomMultiplePersonTeleportButton = Material.matchMaterial(cfg.getString("randomTeleport.multiplePersonButton"));
         this.randomMultiplePersonSearchDist = cfg.getInt("randomTeleport.multiplePersonDistance");
+        this.randomMultiplePlateType = Material.matchMaterial(cfg.getString("randomTeleport.multiplePlateType"));
+        this.detectorEnabled = cfg.getBoolean("blockBreakDetector.enabled");
+        this.detectorBlocks = StringUtil.materialFromStringList(cfg.getStringList("blockBreakDetector.blocks"));
+
+        this.dataSaveType = DataSaveType.valueOf(cfg.getString("data.saveType").toUpperCase());
+        this.mysqlIP = cfg.getString("data.mysql.ip");
+        this.mysqlPort = cfg.getInt("data.mysql.port");
+        this.mysqlUser = cfg.getString("data.mysql.user");
+        this.mysqlPassword = cfg.getString("data.mysql.password");
+        this.mysqlDatabase = cfg.getString("data.mysql.database");
     }
 
     public static Config getInst(){

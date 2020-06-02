@@ -5,7 +5,6 @@ import me.b1vth420.survivalTools.managers.BanManager;
 import me.b1vth420.survivalTools.managers.UserManager;
 import me.b1vth420.survivalTools.objects.Ban;
 import me.b1vth420.survivalTools.objects.User;
-import me.b1vth420.survivalTools.utils.ChatUtil;
 import org.bukkit.command.CommandSender;
 
 public class UnbanCommand extends Command {

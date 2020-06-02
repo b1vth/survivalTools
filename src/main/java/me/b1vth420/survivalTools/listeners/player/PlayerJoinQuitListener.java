@@ -42,5 +42,10 @@ public class PlayerJoinQuitListener implements Listener {
             AntyLogoutManager.removeCombat(AntyLogoutManager.getCombat(e.getPlayer().getUniqueId()).getAttacker());
             AntyLogoutManager.removeCombat(e.getPlayer().getUniqueId());
         }
+
+        Bukkit.getScheduler().runTaskAsynchronously(inst, () -> {
+           User u = UserManager.getUser(e.getPlayer());
+           u.update();
+        });
     }
 }

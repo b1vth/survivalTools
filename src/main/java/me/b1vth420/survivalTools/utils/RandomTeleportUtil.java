@@ -9,9 +9,13 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RandomTeleportUtil {
+
+    static List<Biome> blockedBiomes = Arrays.asList(Biome.OCEAN, Biome.COLD_OCEAN, Biome.DEEP_COLD_OCEAN, Biome.DEEP_FROZEN_OCEAN,
+    Biome.DEEP_LUKEWARM_OCEAN, Biome.DEEP_OCEAN, Biome.FROZEN_OCEAN, Biome.WARM_OCEAN, Biome.LUKEWARM_OCEAN, Biome.DEEP_WARM_OCEAN);
 
     public static Location getSafeLocation(World w) {
         int randomCords[] = new int[3];
@@ -21,7 +25,7 @@ public class RandomTeleportUtil {
         randomCords[1] = w.getHighestBlockYAt(randomCords[0], randomCords[2]) + 2;
 
         Location loc = new Location(w, randomCords[0], randomCords[1], randomCords[2]);
-        if(w.getBiome(loc.getBlockX(), loc.getBlockZ()) == Biome.OCEAN) {
+        if(blockedBiomes.contains(w.getBiome(loc.getBlockX(), loc.getBlockZ()))) {
             return getSafeLocation(w);
         }
         return loc;
@@ -31,7 +35,7 @@ public class RandomTeleportUtil {
         List<Player> toReturn = new ArrayList<>();
         for (Player p : Bukkit.getOnlinePlayers()) {
             if(b.getLocation().distance(p.getLocation()) <= dist) {
-                toReturn.add(p);
+                if(p.getLocation().getBlock().getType() == Config.getInst().randomMultiplePlateType) toReturn.add(p);
             }
         }
         return toReturn;

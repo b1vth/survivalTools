@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 
 public class BanIPCommand extends Command {
     public BanIPCommand() {
-        super("banip", "Blokowanie  ip", "ehcTools.banip", "/banip <nick>", false, 1, new  String[0]);
+        super("banip", "Blokowanie  ip", "ehcTools.banip", "/banip [nick] [powod]", false, 1, new  String[0]);
     }
 
     @Override

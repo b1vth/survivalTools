@@ -3,6 +3,10 @@ package me.b1vth420.survivalTools.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class StringUtil {
 
@@ -44,5 +48,11 @@ public class StringUtil {
             case "spectator": return GameMode.SPECTATOR;
             default: return GameMode.SURVIVAL;
         }
+    }
+
+    public static List<Material> materialFromStringList(List<String> list) {
+        List<Material> toReturn = new ArrayList<>();
+        list.forEach((s) -> toReturn.add(Material.matchMaterial(s.toUpperCase())));
+        return toReturn;
     }
 }

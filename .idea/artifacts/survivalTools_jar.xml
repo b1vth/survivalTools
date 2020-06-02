@@ -3,6 +3,8 @@
     <output-path>$USER_HOME$/Desktop/Serwery/Busio/plugins</output-path>
     <root id="archive" name="survivalTools.jar">
       <element id="module-output" name="survivalTools" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/zaxxer/HikariCP/3.3.1/HikariCP-3.3.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

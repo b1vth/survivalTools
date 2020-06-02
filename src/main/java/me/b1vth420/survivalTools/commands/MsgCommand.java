@@ -1,6 +1,9 @@
 package me.b1vth420.survivalTools.commands;
 
 import me.b1vth420.survivalTools.data.configs.Messages;
+import me.b1vth420.survivalTools.managers.UserManager;
+import me.b1vth420.survivalTools.objects.User;
+import me.b1vth420.survivalTools.utils.ChatUtil;
 import me.b1vth420.survivalTools.utils.StringUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -32,6 +35,11 @@ public class MsgCommand extends Command {
         if(sender.getName().equals(to.getName())) {
             sender.sendMessage(m.getMessage("privateSelfMessage"));
             return;
+        }
+
+        User userTo = UserManager.getUser(to);
+        if(!userTo.isMsg()) {
+            sender.sendMessage(ChatUtil.chat("&4Blad! &cTen gracz ma wyjebane!"));
         }
 
         sender.sendMessage(m.getMessage("privateFromMessage").replace("{TO_NAME}", to.getName()).replace("{MESSAGE}", message));

@@ -11,6 +11,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.material.Button;
 
@@ -20,6 +21,9 @@ public class PlayerInteractListener implements Listener {
 
     @EventHandler
     public void onInteract(PlayerInteractEvent e) {
+
+        if(e.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+
         if (e.getClickedBlock().getType().equals(Config.getInst().randomOnePersonTeleportButton)) {
             Block buttonBlock = e.getClickedBlock();
             Button button = (Button) buttonBlock.getState().getData();
@@ -50,6 +54,7 @@ public class PlayerInteractListener implements Listener {
             Block block = buttonBlock.getRelative(button.getAttachedFace());
 
             if (!(block.getType().equals(Config.getInst().randomTeleportBlock))) return;
+            if(e.getPlayer().getLocation().getBlock().getType() != Config.getInst().randomMultiplePlateType) return;
 
             Location safeLocation = RandomTeleportUtil.getSafeLocation(e.getClickedBlock().getWorld());
 

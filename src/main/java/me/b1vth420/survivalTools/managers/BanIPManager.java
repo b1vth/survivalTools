@@ -1,7 +1,12 @@
 package me.b1vth420.survivalTools.managers;
 
+import me.b1vth420.survivalTools.Main;
+import me.b1vth420.survivalTools.data.DataSaveType;
+import me.b1vth420.survivalTools.data.FileManager;
+import me.b1vth420.survivalTools.data.configs.Config;
 import me.b1vth420.survivalTools.objects.BanIP;
 
+import java.io.File;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class BanIPManager {
@@ -12,7 +17,14 @@ public class BanIPManager {
     public static void addBan(BanIP b) { if(!getBans().contains(b.getIP())) bans.put(b.getIP(), b); }
 
     public static void removeBan(BanIP b) {
-        if(getBans().containsKey(b.getIP())) bans.remove(b.getIP());
+        if (getBans().containsKey(b.getIP())) bans.remove(b.getIP());
+        if (Config.getInst().dataSaveType == DataSaveType.FLAT) {
+            File toRemove = new File(FileManager.getIpBansDir(), b.getName() + ".yml");
+            if (toRemove.exists()) toRemove.delete();
+        }
+        if(Config.getInst().dataSaveType == DataSaveType.MYSQL) {
+            Main.getInst().getSQLManager().execute("DELETE FROM tools_BansIP WHERE uuid = '" + b.getUuid().toString() + "'");
+        }
     }
 
     public static BanIP getBan(String ip) {

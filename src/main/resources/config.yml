@@ -1,9 +1,21 @@
+data:
+  saveType: flat #flat lub mysql
+  mysql:
+    ip:
+    port:
+    user:
+    password:
+    database:
+
 #Wylaczenie szukania najblizszych portali (defaultowo wyszukiwany jest jakis pobliski portal niszczy to tzw. 'autostrady netherowe')
 repairNetherPortals: true
-
 removeJoinQuitMessage: true
-
 spawnTeleportTime: 5 #W sekundach permissja do pominiecia survivalTools.spawnBypass
+
+blockBreakDetector: #Przy wykopaniu danego bloku sprawdza wszystkie wokol niego i wysyla wiadomosc do administracji o ilosci
+  enabled: true
+  blocks:
+    - DIAMOND_ORE
 
 antylogoutTime: '30s'
 logoutBlockedCommands:
@@ -13,6 +25,7 @@ randomTeleport:
   block: BEDROCK
   onePersonButton: STONE_BUTTON
   multiplePersonButton: OAK_BUTTON
+  multiplePlateType: STONE_PRESSURE_PLATE
   multiplePersonDistance: 4
   min:
     x: 100

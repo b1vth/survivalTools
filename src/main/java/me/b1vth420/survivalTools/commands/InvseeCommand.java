@@ -4,7 +4,6 @@ import me.b1vth420.survivalTools.data.configs.Messages;
 import me.b1vth420.survivalTools.utils.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.block.BlockFace;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -22,11 +21,7 @@ public class InvseeCommand extends Command {
             p.sendMessage(ChatUtil.chat("&4Blad! &cTakiego gracza nie ma na serwerze!"));
             return;
         }
-
-        if(p.getLocation().getBlock().getRelative(BlockFace.DOWN).getType() == Material.LEGACY_STONE_PLATE) {
-            System.out.println("e");
-        }
-
+        
         p.sendMessage(Messages.getInst().getMessage("invseeMessage").replace("{PLAYER}", p.getName()));
         p.openInventory(toOpen.getInventory());
     }

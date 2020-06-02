@@ -1,14 +1,19 @@
 package me.b1vth420.survivalTools;
 
 import me.b1vth420.survivalTools.commands.*;
+import me.b1vth420.survivalTools.data.DataSaveType;
+import me.b1vth420.survivalTools.data.flat.DataManager;
 import me.b1vth420.survivalTools.data.FileManager;
 import me.b1vth420.survivalTools.data.configs.Config;
 import me.b1vth420.survivalTools.data.configs.Messages;
+import me.b1vth420.survivalTools.data.mysql.MySQL;
+import me.b1vth420.survivalTools.data.mysql.SQLManager;
 import me.b1vth420.survivalTools.listeners.entity.EntityDamageByEntityListener;
 import me.b1vth420.survivalTools.listeners.player.*;
 import me.b1vth420.survivalTools.managers.AntyLogoutManager;
 import me.b1vth420.survivalTools.managers.TimerManager;
 import me.b1vth420.survivalTools.tasks.AntyLogoutTask;
+import me.b1vth420.survivalTools.tasks.AutoSaveTask;
 import me.b1vth420.survivalTools.tasks.HiddenMessageTask;
 import me.b1vth420.survivalTools.utils.RegisterUtil;
 import org.bukkit.Bukkit;
@@ -19,6 +24,10 @@ public final class Main extends JavaPlugin {
     public HiddenMessageTask hiddenMessageTask;
 
     private static Main inst;
+    private static MySQL mysql;
+
+    private SQLManager sql;
+    private FileManager fileManager;
 
     public Main() {
         inst = this;
@@ -35,14 +44,26 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
         Bukkit.getOnlinePlayers().forEach((p) -> AntyLogoutManager.removeCombat(p.getUniqueId()));
+        if(Config.getInst().dataSaveType == DataSaveType.FLAT) DataManager.saveAll();
+        if(Config.getInst().dataSaveType == DataSaveType.MYSQL) {
+            MySQL.getInst().saveAll();
+            sql.onDisable();
+        }
     }
 
     private void init() {
         new RegisterUtil();
-        new FileManager();
+        this.fileManager = new FileManager();
         new Config(); //This could be moved to FileManager
+        fileManager.checkFlat();
         new Messages(); //This could be moved to FileManager
         hiddenMessageTask = new HiddenMessageTask(this);
+       if(Config.getInst().dataSaveType == DataSaveType.FLAT) DataManager.loadAll();
+       if(Config.getInst().dataSaveType == DataSaveType.MYSQL) {
+           registerDatabase();
+           mysql = new MySQL();
+           MySQL.getInst().loadAll();
+       }
     }
 
 
@@ -61,6 +82,8 @@ public final class Main extends JavaPlugin {
         RegisterUtil.registerCommand(new SpawnCommand());
         RegisterUtil.registerCommand(new MsgCommand());
         RegisterUtil.registerCommand(new ReplyCommand());
+        RegisterUtil.registerCommand(new WyjebaneCommand());
+        RegisterUtil.registerCommand(new TempBanCommand());
     }
 
     private void registerListeners() {
@@ -72,15 +95,23 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new EntityDamageByEntityListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerCommandPreProcessListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BlockBreakListener(this), this);
     }
 
     private void registerTasks() {
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, hiddenMessageTask, 40L, 40L);
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, new AntyLogoutTask(), 20L, 20L);
+        Bukkit.getScheduler().runTaskTimerAsynchronously(this, new AutoSaveTask(), 12000L, 12000L);
     }
 
     public static Main getInst() {
         if(inst == null) return new Main();
         return inst;
     }
+
+    private void registerDatabase(){
+        sql = new SQLManager(this);
+    }
+    public SQLManager getSQLManager() { return this.sql; }
 }

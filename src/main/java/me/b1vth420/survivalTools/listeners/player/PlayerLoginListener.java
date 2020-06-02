@@ -5,6 +5,7 @@ import me.b1vth420.survivalTools.managers.BanManager;
 import me.b1vth420.survivalTools.objects.Ban;
 import me.b1vth420.survivalTools.objects.BanIP;
 import me.b1vth420.survivalTools.utils.ChatUtil;
+import me.b1vth420.survivalTools.utils.DataUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -26,6 +27,17 @@ public class PlayerLoginListener implements Listener {
                                 "\n&4Powod: &c" + b.getReason()));
                 return;
             }
+
+            if(b.getTime() > System.currentTimeMillis()) {
+                e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_BANNED,
+                        ChatUtil.chat("&4Zostales zbanowany!" +
+                                "\n&4Przez: &c" + b.getAdmin() +
+                                "\n&4Powod: &c" + b.getReason() +
+                                "\n&4Do: &c" + DataUtil.getDate(b.getTime())));
+            } else {
+                BanManager.removeBan(b);
+            }
+            return;
         }
         String ip = e.getAddress().getHostAddress().replace("/", "");
         BanIP ban = BanIPManager.getBan(ip);

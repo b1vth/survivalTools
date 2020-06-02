@@ -30,3 +30,5 @@ messages:
   privateFromMessage: 'Ja -> {TO_NAME}: {MESSAGE}'
   privateSelfMessage: '&4Blad! &cNie mozesz wyslac wiadomosci do siebie!'
   privateNoPersonToReply: '&4Blad! &cNie masz komu odpisac!'
+  wyjebaneOnMessage: 'Wlaczyles wyjebane'
+  wyjebaneOffMessage: 'Wylaczyles wyjebane'
