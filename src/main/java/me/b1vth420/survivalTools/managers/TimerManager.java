@@ -30,6 +30,12 @@ public class TimerManager implements Listener {
             t.cancel(p);
             return;
         }
+
+        if(AntyLogoutManager.isInCombat(p.getUniqueId())) {
+            t.cancel(p);
+            return;
+        }
+
         t = new TimerTask(p.getUniqueId(), call);
         TimerManager.tasks.put(p.getUniqueId(), t);
         t.runTaskLater(Main.getInst(), time*20);

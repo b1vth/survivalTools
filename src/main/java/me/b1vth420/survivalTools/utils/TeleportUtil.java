@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 
 public class TeleportUtil {
     public static void teleport(Player p, Location l, int time, String location) {
-        //TODO Checking antylogout
+
         p.sendMessage(ChatUtil.chat("&3[Uwaga] &bTeleportacja nastapi za &6" + time + "&b sekund"));
         TimerManager.addTask(p, new TimerInterface<Player>() {
             @Override
