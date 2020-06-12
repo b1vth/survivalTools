@@ -17,6 +17,10 @@ blockBreakDetector: #Przy wykopaniu danego bloku sprawdza wszystkie wokol niego 
   blocks:
     - DIAMOND_ORE
 
+explosionBlock:
+  entities:
+    - CREEPER
+
 antylogoutTime: '30s'
 logoutBlockedCommands:
   - /jakaskomenda

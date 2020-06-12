@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,5 +55,20 @@ public class StringUtil {
         List<Material> toReturn = new ArrayList<>();
         list.forEach((s) -> toReturn.add(Material.matchMaterial(s.toUpperCase())));
         return toReturn;
+    }
+
+    public static List<EntityType> entityFromStringList(List<String> list) {
+        List<EntityType> toReturn = new ArrayList<>();
+        list.forEach((s) -> toReturn.add(getEntityByName(s)));
+        return toReturn;
+    }
+
+    public static EntityType getEntityByName(String name) {
+        for (EntityType type : EntityType.values()) {
+            if(type.name().equalsIgnoreCase(name)) {
+                return type;
+            }
+        }
+        return null;
     }
 }

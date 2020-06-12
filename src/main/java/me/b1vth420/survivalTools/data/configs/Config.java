@@ -5,6 +5,7 @@ import me.b1vth420.survivalTools.data.DataSaveType;
 import me.b1vth420.survivalTools.utils.StringUtil;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.EntityType;
 
 import java.util.List;
 
@@ -34,6 +35,7 @@ public class Config {
     public int randomMultiplePersonSearchDist;
     public boolean detectorEnabled;
     public List<Material> detectorBlocks;
+    public List<EntityType> explodeBlock;
 
     public DataSaveType dataSaveType;
     public String mysqlIP;
@@ -61,6 +63,7 @@ public class Config {
         this.randomMultiplePlateType = Material.matchMaterial(cfg.getString("randomTeleport.multiplePlateType"));
         this.detectorEnabled = cfg.getBoolean("blockBreakDetector.enabled");
         this.detectorBlocks = StringUtil.materialFromStringList(cfg.getStringList("blockBreakDetector.blocks"));
+        this.explodeBlock = StringUtil.entityFromStringList(cfg.getStringList("explosionBlock.entities"));
 
         this.dataSaveType = DataSaveType.valueOf(cfg.getString("data.saveType").toUpperCase());
         this.mysqlIP = cfg.getString("data.mysql.ip");

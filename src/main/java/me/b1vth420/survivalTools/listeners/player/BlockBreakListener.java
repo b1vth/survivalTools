@@ -1,7 +1,9 @@
 package me.b1vth420.survivalTools.listeners.player;
 
 import me.b1vth420.survivalTools.Main;
+import me.b1vth420.survivalTools.data.DataSaveType;
 import me.b1vth420.survivalTools.data.configs.Config;
+import me.b1vth420.survivalTools.data.mysql.MySQL;
 import me.b1vth420.survivalTools.utils.BlockUtil;
 import me.b1vth420.survivalTools.utils.ChatUtil;
 import me.b1vth420.survivalTools.utils.PolishItemNames;
@@ -30,6 +32,7 @@ public class BlockBreakListener implements Listener {
             for (Block b : blocks) {
                 b.setMetadata(b.getType().toString().toLowerCase() + "X", new FixedMetadataValue(inst, Boolean.valueOf(true)));
             }
+            if(Config.getInst().dataSaveType == DataSaveType.MYSQL) MySQL.getInst().insertDetectorBlock(e.getBlock(), blocks.size(), e.getPlayer());
 
             for (Player o : Bukkit.getOnlinePlayers()) {
                 if (o.hasPermission("survivalTools.detector.see"))

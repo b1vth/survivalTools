@@ -2,13 +2,14 @@ package me.b1vth420.survivalTools;
 
 import me.b1vth420.survivalTools.commands.*;
 import me.b1vth420.survivalTools.data.DataSaveType;
-import me.b1vth420.survivalTools.data.flat.DataManager;
 import me.b1vth420.survivalTools.data.FileManager;
 import me.b1vth420.survivalTools.data.configs.Config;
 import me.b1vth420.survivalTools.data.configs.Messages;
+import me.b1vth420.survivalTools.data.flat.DataManager;
 import me.b1vth420.survivalTools.data.mysql.MySQL;
 import me.b1vth420.survivalTools.data.mysql.SQLManager;
 import me.b1vth420.survivalTools.listeners.entity.EntityDamageByEntityListener;
+import me.b1vth420.survivalTools.listeners.entity.EntityExplodeListener;
 import me.b1vth420.survivalTools.listeners.player.*;
 import me.b1vth420.survivalTools.managers.AntyLogoutManager;
 import me.b1vth420.survivalTools.managers.TimerManager;
@@ -97,6 +98,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new BlockBreakListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new EntityExplodeListener(), this);
     }
 
     private void registerTasks() {
