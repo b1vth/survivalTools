@@ -14,6 +14,7 @@ import me.b1vth420.survivalTools.listeners.player.*;
 import me.b1vth420.survivalTools.managers.AntyLogoutManager;
 import me.b1vth420.survivalTools.managers.TimerManager;
 import me.b1vth420.survivalTools.tasks.AntyLogoutTask;
+import me.b1vth420.survivalTools.tasks.AutoMessageTask;
 import me.b1vth420.survivalTools.tasks.AutoSaveTask;
 import me.b1vth420.survivalTools.tasks.HiddenMessageTask;
 import me.b1vth420.survivalTools.utils.RegisterUtil;
@@ -105,6 +106,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, hiddenMessageTask, 40L, 40L);
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, new AntyLogoutTask(), 20L, 20L);
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, new AutoSaveTask(), 12000L, 12000L);
+        new AutoMessageTask(this);
     }
 
     public static Main getInst() {
