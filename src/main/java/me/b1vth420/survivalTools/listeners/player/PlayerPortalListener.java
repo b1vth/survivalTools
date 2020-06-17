@@ -9,6 +9,6 @@ public class PlayerPortalListener implements Listener {
 
     @EventHandler
     public void onPortal(PlayerPortalEvent e) {
-        if(Config.getInst().repairNetherPortals) e.setSearchRadius(0);
+        if(Config.getInst().repairNetherPortals) e.setSearchRadius(1);
     }
 }
