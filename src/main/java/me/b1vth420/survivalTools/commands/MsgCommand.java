@@ -17,7 +17,7 @@ public class MsgCommand extends Command {
     private static final HashMap<UUID, UUID> lastMsg = new HashMap<>();
 
     public MsgCommand() {
-        super("msg", "Pisanie prywatnych wiadomosci", "ehcTools.msg", "/msg <nick> <wiamdomosc>", false, 2, new String[0]);
+        super("msg", "Pisanie prywatnych wiadomosci", "survivalTools.msg", "/msg <nick> <wiamdomosc>", false, 2, new String[0]);
     }
 
     @Override

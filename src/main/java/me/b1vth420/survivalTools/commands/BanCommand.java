@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 public class BanCommand extends Command {
     public BanCommand() {
-        super("ban", "Banowanie graczy", "ehcTools.ban", "/ban [nick] [powod] [czas]", false, 1, new String[0]);
+        super("ban", "Banowanie graczy", "survivalTools.ban", "/ban [nick] [powod] [czas]", false, 1, new String[0]);
     }
 
     @Override

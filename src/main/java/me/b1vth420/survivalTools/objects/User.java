@@ -5,7 +5,6 @@ import me.b1vth420.survivalTools.managers.UserManager;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -17,8 +16,6 @@ public class User {
     private long firstJoin;
     private long lastJoin;
     private boolean msg;
-
-    //TODO mysql/mongodb (now only flat :/)
 
     public User(Player p) {
         this.name = p.getName();

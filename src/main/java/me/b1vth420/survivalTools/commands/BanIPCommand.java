@@ -7,13 +7,12 @@ import me.b1vth420.survivalTools.objects.User;
 import me.b1vth420.survivalTools.utils.ChatUtil;
 import me.b1vth420.survivalTools.utils.StringUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class BanIPCommand extends Command {
     public BanIPCommand() {
-        super("banip", "Blokowanie  ip", "ehcTools.banip", "/banip [nick] [powod]", false, 1, new  String[0]);
+        super("banip", "Blokowanie  ip", "survivalTools.banip", "/banip [nick] [powod]", false, 1, new  String[0]);
     }
 
     @Override

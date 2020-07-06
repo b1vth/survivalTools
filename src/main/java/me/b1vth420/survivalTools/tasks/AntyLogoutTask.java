@@ -4,6 +4,8 @@ import me.b1vth420.survivalTools.managers.AntyLogoutManager;
 import me.b1vth420.survivalTools.objects.Combat;
 import me.b1vth420.survivalTools.utils.ChatUtil;
 import me.b1vth420.survivalTools.utils.DataUtil;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -18,12 +20,13 @@ public class AntyLogoutTask implements Runnable {
             Player p = Bukkit.getPlayer(uuid);
             if(AntyLogoutManager.isInCombat(uuid)) {
                 if(p != null)
-                p.sendActionBar(ChatUtil.chat("&cAntyLogout: " + DataUtil.secondsToString(c.getLastAttackTime())));
+                    p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatUtil.chat("&cAntyLogout: " + DataUtil.secondsToString(c.getLastAttackTime()))));
             } else {
-                if(p != null)
-                p.sendActionBar(ChatUtil.chat("&aMozesz sie juz wylogowac!"));
-                AntyLogoutManager.removeCombat(uuid);
+                if(p != null) {
+                    p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatUtil.chat("&aMozesz sie juz wylogowac!")));
+                    AntyLogoutManager.removeCombat(uuid);
             }
+                }
         }
     }
 }

@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 
 public class ChatCommand extends Command {
     public ChatCommand() {
-        super("chat", "Zarzadzanie chatem", "ehcTools.chat", "/chat [clear/on/off/cooldown]", false, 1, new String[0]);
+        super("chat", "Zarzadzanie chatem", "survivalTools.chat", "/chat [clear/on/off/cooldown]", false, 1, new String[0]);
     }
 
     Messages m = Messages.getInst();

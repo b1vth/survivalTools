@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 
 public class UnbanIPCommand extends Command{
     public UnbanIPCommand() {
-        super("unbanip", "Odblokowywanie ip gracza","ehcTools.unbanip", "/unbanip <nick>", false, 1, new String[0]);
+        super("unbanip", "Odblokowywanie ip gracza","survivalTools.unbanip", "/unbanip <nick>", false, 1, new String[0]);
     }
 
     @Override

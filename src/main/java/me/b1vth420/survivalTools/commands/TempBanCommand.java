@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 
 public class TempBanCommand extends Command {
     public TempBanCommand() {
-        super("tempban", "Czasowe banowanie graczy", "ehcTools.tempban", "/tempban <nick> <czas> <powod>", false, 2, new String[0]);
+        super("tempban", "Czasowe banowanie graczy", "survivalTools.tempban", "/tempban <nick> <czas> <powod>", false, 2, new String[0]);
     }
 
     @Override

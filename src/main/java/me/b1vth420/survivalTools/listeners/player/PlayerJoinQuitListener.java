@@ -1,6 +1,7 @@
 package me.b1vth420.survivalTools.listeners.player;
 
 import me.b1vth420.survivalTools.Main;
+import me.b1vth420.survivalTools.data.DataSaveType;
 import me.b1vth420.survivalTools.data.configs.Config;
 import me.b1vth420.survivalTools.data.configs.Messages;
 import me.b1vth420.survivalTools.managers.AntyLogoutManager;
@@ -44,8 +45,10 @@ public class PlayerJoinQuitListener implements Listener {
         }
 
         Bukkit.getScheduler().runTaskAsynchronously(inst, () -> {
-           User u = UserManager.getUser(e.getPlayer());
-           u.update();
+           if(Config.getInst().dataSaveType == DataSaveType.MYSQL) {
+               User u = UserManager.getUser(e.getPlayer());
+               u.update();
+           }
         });
     }
 }

@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 public class ReplyCommand extends Command {
 
     public ReplyCommand() {
-        super("reply", "Szybkie odpowiadanie na prywatne wiadomosci", "ehcTools.reply", "/r <wiadomosc>", true, 1, new String[]{"r"});
+        super("reply", "Szybkie odpowiadanie na prywatne wiadomosci", "survivalTools.reply", "/r <wiadomosc>", true, 1, new String[]{"r"});
     }
 
     @Override

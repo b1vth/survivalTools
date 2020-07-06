@@ -32,3 +32,4 @@ messages:
   privateNoPersonToReply: '&4Blad! &cNie masz komu odpisac!'
   wyjebaneOnMessage: 'Wlaczyles wyjebane'
   wyjebaneOffMessage: 'Wylaczyles wyjebane'
+  dayCommandMessage: 'Ustawiles dzien'

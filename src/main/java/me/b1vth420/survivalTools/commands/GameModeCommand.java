@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 public class GameModeCommand  extends Command {
     public GameModeCommand() {
-        super("gamemode", "Zmiana trybu gry", "ehcTools.gamemode", "/gamemode <tryb> <gracz>", false, 1, new String[] {"gm"});
+        super("gamemode", "Zmiana trybu gry", "survivalTools.gamemode", "/gamemode <tryb> <gracz>", false, 1, new String[] {"gm"});
     }
 
     @Override

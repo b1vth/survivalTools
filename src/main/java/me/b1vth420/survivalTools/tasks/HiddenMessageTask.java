@@ -3,6 +3,8 @@ package me.b1vth420.survivalTools.tasks;
 import me.b1vth420.survivalTools.Main;
 import me.b1vth420.survivalTools.data.configs.Messages;
 import me.b1vth420.survivalTools.utils.ChatUtil;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -27,7 +29,7 @@ public class HiddenMessageTask implements Runnable {
                 hiddenPlayers.remove(uuid);
                 continue;
             }
-            p.sendActionBar(ChatUtil.chat("&aJestes niewidoczny"));
+            p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatUtil.chat("&aJestes niewidoczny")));
         }
     }
 
@@ -35,7 +37,7 @@ public class HiddenMessageTask implements Runnable {
         hiddenPlayers.add(p.getUniqueId());
         p.hidePlayer(inst, p);
         p.sendMessage(Messages.getInst().getMessage("vanishChangeMessage").replace("{MODE}", ChatUtil.chat("&aniewidzialny")));
-        p.sendActionBar(ChatUtil.chat("&aJestes niewidzialny"));
+        p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("&aJestes niewidzialny"));
         p.setPlayerListName(" ");
     }
 
@@ -43,7 +45,7 @@ public class HiddenMessageTask implements Runnable {
         hiddenPlayers.remove(p.getUniqueId());
         p.showPlayer(inst, p);
         p.sendMessage(Messages.getInst().getMessage("vanishChangeMessage").replace("{MODE}", ChatUtil.chat("&cwidzialny")));
-        p.sendActionBar(ChatUtil.chat("&cJestes widzialny"));
+        p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatUtil.chat("&cJestes widzialny")));
         p.setPlayerListName(p.getDisplayName());
     }
 

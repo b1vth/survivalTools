@@ -86,6 +86,7 @@ public final class Main extends JavaPlugin {
         RegisterUtil.registerCommand(new ReplyCommand());
         RegisterUtil.registerCommand(new WyjebaneCommand());
         RegisterUtil.registerCommand(new TempBanCommand());
+        RegisterUtil.registerCommand(new DayCommand());
     }
 
     private void registerListeners() {
