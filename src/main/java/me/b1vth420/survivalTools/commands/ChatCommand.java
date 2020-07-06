@@ -2,6 +2,7 @@ package me.b1vth420.survivalTools.commands;
 
 import me.b1vth420.survivalTools.data.configs.Messages;
 import me.b1vth420.survivalTools.managers.ChatManager;
+import me.b1vth420.survivalTools.utils.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -27,8 +28,13 @@ public class ChatCommand extends Command {
 
     void cooldown(CommandSender sender, String s) {
         ChatManager.cooldown = s;
-        for(Player p : Bukkit.getOnlinePlayers()) p.sendMessage(m.getMessage("chatCooldownMessage").replace("{PLAYER_NAME}", sender.getName()).replace("{TIME}", s));
-    }
+        if(ChatUtil.isInteger(s) && Integer.parseInt(s) > 0) {
+            for (Player p : Bukkit.getOnlinePlayers())
+                p.sendMessage(m.getMessage("chatCooldownMessage").replace("{PLAYER_NAME}", sender.getName()).replace("{TIME}", s));
+            return;
+        }
+        sender.sendMessage(ChatUtil.chat("&4Blad! &cNie podales prawidlowej liczby!"));
+        }
 
     void chatClear(CommandSender sender) {
         for(int i = 0; i < 100; i++) {

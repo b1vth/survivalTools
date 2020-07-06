@@ -2,8 +2,10 @@ package me.b1vth420.survivalTools.tasks;
 
 import me.b1vth420.survivalTools.Main;
 import me.b1vth420.survivalTools.data.configs.Config;
+import me.b1vth420.survivalTools.utils.ChatUtil;
 import me.b1vth420.survivalTools.utils.RandomUtil;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
@@ -24,6 +26,9 @@ public class AutoMessageTask implements Runnable {
 
     @Override
     public void run() {
-        inst.getServer().broadcastMessage(autoMessage.get(RandomUtil.getRandInt(0, autoMessage.size()-1))); //Wybiera randomowa wadomosc
+        if(autoMessage.isEmpty()) return;
+        for(Player p : Bukkit.getOnlinePlayers()) {
+            p.sendMessage(ChatUtil.chat(autoMessage.get(RandomUtil.getRandInt(0, autoMessage.size()-1)))); //Wybiera randomowa wadomosc
+        }
     }
 }
