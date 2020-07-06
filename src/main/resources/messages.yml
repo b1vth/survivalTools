@@ -33,3 +33,4 @@ messages:
   wyjebaneOnMessage: 'Wlaczyles wyjebane'
   wyjebaneOffMessage: 'Wylaczyles wyjebane'
   dayCommandMessage: 'Ustawiles dzien'
+  playerDeathMessage: 'Zdechles na kordach [locationX], [locationY], [locationZ]'
