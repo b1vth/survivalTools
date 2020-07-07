@@ -51,11 +51,13 @@ public class MySQL {
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String date = myDateObj.format(myFormatObj);
-
+        if(amount == 0) amount++;
         //Async to not block main thread
+        int finalAmount = amount;
         Bukkit.getScheduler().runTaskAsynchronously(Main.getInst(), () -> {
+
             Main.getInst().getSQLManager().executeUpdate("INSERT INTO tools_DetectorBlocks(UUID, name, time, block, amount) VALUES (?,?,?,?,?)", new String[] {
-                uuid, name, date, location, String.valueOf(amount)
+                uuid, name, date, location, String.valueOf(finalAmount)
             });
         });
     }

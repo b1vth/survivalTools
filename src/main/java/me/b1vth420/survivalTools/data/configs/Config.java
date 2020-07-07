@@ -36,6 +36,7 @@ public class Config {
     public boolean detectorEnabled;
     public List<Material> detectorBlocks;
     public List<EntityType> explodeBlock;
+    public boolean autoMessagesEnabled;
     public List<String> autoMessages;
 
     public DataSaveType dataSaveType;
@@ -65,7 +66,8 @@ public class Config {
         this.detectorEnabled = cfg.getBoolean("blockBreakDetector.enabled");
         this.detectorBlocks = StringUtil.materialFromStringList(cfg.getStringList("blockBreakDetector.blocks"));
         this.explodeBlock = StringUtil.entityFromStringList(cfg.getStringList("explosionBlock.entities"));
-        this.autoMessages = cfg.getStringList("autoMessages");
+        this.autoMessagesEnabled = cfg.getBoolean("autoMessages.enabled");
+        this.autoMessages = cfg.getStringList("autoMessages.messages");
 
         this.dataSaveType = DataSaveType.valueOf(cfg.getString("data.saveType").toUpperCase());
         this.mysqlIP = cfg.getString("data.mysql.ip");

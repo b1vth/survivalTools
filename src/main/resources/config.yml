@@ -13,9 +13,11 @@ removeJoinQuitMessage: true
 spawnTeleportTime: 5 #W sekundach permissja do pominiecia survivalTools.spawnBypass
 
 autoMessages:
-  - 'aaa'
-  - 'bbb'
-  - 'ccc'
+  enabled: true
+  messages:
+    - 'aaa'
+    - 'bbb'
+    - 'ccc'
 
 blockBreakDetector: #Przy wykopaniu danego bloku sprawdza wszystkie wokol niego i wysyla wiadomosc do administracji o ilosci
   enabled: true

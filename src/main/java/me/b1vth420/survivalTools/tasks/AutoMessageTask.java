@@ -26,7 +26,7 @@ public class AutoMessageTask implements Runnable {
 
     @Override
     public void run() {
-        if(autoMessage.isEmpty()) return;
+        if(autoMessage == null || autoMessage.isEmpty()) return;
         for(Player p : Bukkit.getOnlinePlayers()) {
             p.sendMessage(ChatUtil.chat(autoMessage.get(RandomUtil.getRandInt(0, autoMessage.size()-1)))); //Wybiera randomowa wadomosc
         }

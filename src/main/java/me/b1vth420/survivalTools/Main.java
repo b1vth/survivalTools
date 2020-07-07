@@ -107,7 +107,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, hiddenMessageTask, 40L, 40L);
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, new AntyLogoutTask(), 20L, 20L);
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, new AutoSaveTask(), 12000L, 12000L);
-        new AutoMessageTask(this);
+        if(Config.getInst().autoMessagesEnabled) new AutoMessageTask(this);
     }
 
     public static Main getInst() {
