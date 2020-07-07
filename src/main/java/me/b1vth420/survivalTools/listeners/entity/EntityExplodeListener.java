@@ -9,6 +9,7 @@ public class EntityExplodeListener implements Listener {
 
     @EventHandler
     public void onExplode(EntityExplodeEvent e) {
+
         if(Config.getInst().explodeBlock.contains(e.getEntityType())) e.setCancelled(true);
     }
 }

@@ -5,7 +5,9 @@ import me.b1vth420.survivalTools.data.configs.Messages;
 import me.b1vth420.survivalTools.utils.ChatUtil;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.minecraft.server.v1_16_R1.PacketPlayOutPlayerInfo;
 import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.HashSet;
@@ -37,8 +39,12 @@ public class HiddenMessageTask implements Runnable {
         hiddenPlayers.add(p.getUniqueId());
         p.hidePlayer(inst, p);
         p.sendMessage(Messages.getInst().getMessage("vanishChangeMessage").replace("{MODE}", ChatUtil.chat("&aniewidzialny")));
-        p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent("&aJestes niewidzialny"));
-        p.setPlayerListName(" ");
+        p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatUtil.chat("&aJestes niewidzialny")));
+        PacketPlayOutPlayerInfo info = new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, ((CraftPlayer)p).getHandle());
+
+        for(Player px : Bukkit.getOnlinePlayers()) {
+            ((CraftPlayer)px).getHandle().playerConnection.sendPacket(info);
+        }
     }
 
     public void removeHiddenPlayer(Player p) {
@@ -46,7 +52,12 @@ public class HiddenMessageTask implements Runnable {
         p.showPlayer(inst, p);
         p.sendMessage(Messages.getInst().getMessage("vanishChangeMessage").replace("{MODE}", ChatUtil.chat("&cwidzialny")));
         p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatUtil.chat("&cJestes widzialny")));
-        p.setPlayerListName(p.getDisplayName());
+
+        PacketPlayOutPlayerInfo info = new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, ((CraftPlayer)p).getHandle());
+
+        for(Player px : Bukkit.getOnlinePlayers()) {
+            ((CraftPlayer)px).getHandle().playerConnection.sendPacket(info);
+        }
     }
 
     public boolean isHidden(Player p) {
