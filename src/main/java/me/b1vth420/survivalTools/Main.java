@@ -1,5 +1,7 @@
 package me.b1vth420.survivalTools;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
 import me.b1vth420.survivalTools.commands.*;
 import me.b1vth420.survivalTools.data.DataSaveType;
 import me.b1vth420.survivalTools.data.FileManager;
@@ -10,6 +12,7 @@ import me.b1vth420.survivalTools.data.mysql.MySQL;
 import me.b1vth420.survivalTools.data.mysql.SQLManager;
 import me.b1vth420.survivalTools.listeners.entity.EntityDamageByEntityListener;
 import me.b1vth420.survivalTools.listeners.entity.EntityExplodeListener;
+import me.b1vth420.survivalTools.listeners.entity.EntityTargetListener;
 import me.b1vth420.survivalTools.listeners.player.*;
 import me.b1vth420.survivalTools.managers.AntyLogoutManager;
 import me.b1vth420.survivalTools.managers.TimerManager;
@@ -24,6 +27,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Main extends JavaPlugin {
 
     public HiddenMessageTask hiddenMessageTask;
+    public ProtocolManager protocolManager;
 
     private static Main inst;
     private static MySQL mysql;
@@ -33,6 +37,11 @@ public final class Main extends JavaPlugin {
 
     public Main() {
         inst = this;
+    }
+
+    @Override
+    public void onLoad() {
+        protocolManager = ProtocolLibrary.getProtocolManager();
     }
 
     @Override
@@ -87,6 +96,8 @@ public final class Main extends JavaPlugin {
         RegisterUtil.registerCommand(new WyjebaneCommand());
         RegisterUtil.registerCommand(new TempBanCommand());
         RegisterUtil.registerCommand(new DayCommand());
+        RegisterUtil.registerCommand(new HealCommand());
+        RegisterUtil.registerCommand(new WeatherCommand());
     }
 
     private void registerListeners() {
@@ -101,7 +112,8 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(), this);
         Bukkit.getPluginManager().registerEvents(new BlockBreakListener(this), this);
         Bukkit.getPluginManager().registerEvents(new EntityExplodeListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerPickupItemListener( hiddenMessageTask), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerPickupItemListener(hiddenMessageTask), this);
+        Bukkit.getPluginManager().registerEvents(new EntityTargetListener(hiddenMessageTask), this);
     }
 
     private void registerTasks() {

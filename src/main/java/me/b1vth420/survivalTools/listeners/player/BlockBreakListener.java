@@ -34,6 +34,7 @@ public class BlockBreakListener implements Listener {
             }
             if(Config.getInst().dataSaveType == DataSaveType.MYSQL) MySQL.getInst().insertDetectorBlock(e.getBlock(), blocks.size(), e.getPlayer());
 
+
             for (Player o : Bukkit.getOnlinePlayers()) {
                 if (o.hasPermission("survivalTools.detector.see"))
                     o.sendMessage(ChatUtil.chat("&8 [&4ANTY&8-&4XARY&8] &8[&c" + e.getPlayer().getName() + "&8]&c Znalazl &c" + blocks.size() + " &c" + PolishItemNames.getPolishName(e.getBlock().getType()).substring(0, 1).toUpperCase() + PolishItemNames.getPolishName(e.getBlock().getType()).substring(1) + "."));

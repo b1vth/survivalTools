@@ -31,7 +31,7 @@ public class SpawnCommand extends Command {
                 return;
             }
             p.sendMessage(m.getMessage("spawnTeleportMessage"));
-            p.teleport(p.getWorld().getSpawnLocation());
+            p.teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
             return;
         }
 

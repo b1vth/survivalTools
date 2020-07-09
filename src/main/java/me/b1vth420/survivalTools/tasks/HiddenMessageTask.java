@@ -1,15 +1,23 @@
 package me.b1vth420.survivalTools.tasks;
 
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.wrappers.EnumWrappers;
+import com.comphenix.protocol.wrappers.PlayerInfoData;
+import com.comphenix.protocol.wrappers.WrappedChatComponent;
+import com.comphenix.protocol.wrappers.WrappedGameProfile;
 import me.b1vth420.survivalTools.Main;
 import me.b1vth420.survivalTools.data.configs.Messages;
 import me.b1vth420.survivalTools.utils.ChatUtil;
+import me.b1vth420.survivalTools.utils.RegisterUtil;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.minecraft.server.v1_16_R1.PacketPlayOutPlayerInfo;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_16_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.UUID;
 
@@ -37,26 +45,43 @@ public class HiddenMessageTask implements Runnable {
 
     public void addHiddenPlayer(Player p) {
         hiddenPlayers.add(p.getUniqueId());
-        p.hidePlayer(inst, p);
         p.sendMessage(Messages.getInst().getMessage("vanishChangeMessage").replace("{MODE}", ChatUtil.chat("&aniewidzialny")));
         p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatUtil.chat("&aJestes niewidzialny")));
-        PacketPlayOutPlayerInfo info = new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.REMOVE_PLAYER, ((CraftPlayer)p).getHandle());
+
+        PacketContainer playerInfo = new PacketContainer(PacketType.Play.Server.PLAYER_INFO);
+        playerInfo.getPlayerInfoAction().write(0, EnumWrappers.PlayerInfoAction.REMOVE_PLAYER);
+
+        PlayerInfoData pid = new PlayerInfoData(WrappedGameProfile.fromPlayer(p), RegisterUtil.getPing(p), EnumWrappers.NativeGameMode.fromBukkit(p.getGameMode()), WrappedChatComponent.fromText(p.getPlayerListName()));
+        playerInfo.getPlayerInfoDataLists().write(0, Collections.singletonList(pid));
 
         for(Player px : Bukkit.getOnlinePlayers()) {
-            ((CraftPlayer)px).getHandle().playerConnection.sendPacket(info);
+            try {
+                if(!px.hasPermission("survivalTools.vanishSee")) px.hidePlayer(inst, p);
+                ProtocolLibrary.getProtocolManager().sendServerPacket(px, playerInfo);
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public void removeHiddenPlayer(Player p) {
         hiddenPlayers.remove(p.getUniqueId());
-        p.showPlayer(inst, p);
         p.sendMessage(Messages.getInst().getMessage("vanishChangeMessage").replace("{MODE}", ChatUtil.chat("&cwidzialny")));
         p.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(ChatUtil.chat("&cJestes widzialny")));
 
-        PacketPlayOutPlayerInfo info = new PacketPlayOutPlayerInfo(PacketPlayOutPlayerInfo.EnumPlayerInfoAction.ADD_PLAYER, ((CraftPlayer)p).getHandle());
+        PacketContainer playerInfo = new PacketContainer(PacketType.Play.Server.PLAYER_INFO);
+        playerInfo.getPlayerInfoAction().write(0, EnumWrappers.PlayerInfoAction.ADD_PLAYER);
+
+        PlayerInfoData pid = new PlayerInfoData(WrappedGameProfile.fromPlayer(p), RegisterUtil.getPing(p), EnumWrappers.NativeGameMode.fromBukkit(p.getGameMode()), WrappedChatComponent.fromText(p.getPlayerListName()));
+        playerInfo.getPlayerInfoDataLists().write(0, Collections.singletonList(pid));
 
         for(Player px : Bukkit.getOnlinePlayers()) {
-            ((CraftPlayer)px).getHandle().playerConnection.sendPacket(info);
+            try {
+                px.showPlayer(inst, p);
+                ProtocolLibrary.getProtocolManager().sendServerPacket(px, playerInfo);
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
         }
     }
 

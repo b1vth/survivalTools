@@ -3,7 +3,6 @@ package me.b1vth420.survivalTools.commands;
 import me.b1vth420.survivalTools.data.configs.Messages;
 import me.b1vth420.survivalTools.utils.ChatUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -22,7 +21,7 @@ public class InvseeCommand extends Command {
             return;
         }
         
-        p.sendMessage(Messages.getInst().getMessage("invseeMessage").replace("{PLAYER}", p.getName()));
+        p.sendMessage(Messages.getInst().getMessage("invseeMessage").replace("{PLAYER}", toOpen.getName()));
         p.openInventory(toOpen.getInventory());
     }
 }
